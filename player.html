@@ -5,17 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Player - NeonFlix</title>
 <style>
-body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;}
-header{display:flex;align-items:center;justify-content:space-between;padding:15px 30px;background:#0a0a0a;border-bottom:2px solid red;}
-.logo{color:red;font-weight:bold;}
-.back-btn{background:red;color:#fff;padding:8px 14px;border-radius:16px;text-decoration:none;}
-.container{padding:30px;display:flex;flex-direction:column;align-items:center;gap:18px;}
-#titulo{color:red;font-size:1.6rem;text-shadow:0 0 8px red;}
-video{width:90%;max-width:1000px;border-radius:10px;box-shadow:0 0 30px red;background:#000;}
-.episodios{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
-.episodios button{background:#b30000;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;}
-.episodios button:hover{background:#ff3333;}
-.msg{color:#ccc;}
+/* Geral */
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background: #0a0a0a;
+  border-bottom: 2px solid red;
+}
+.logo {
+  color: red;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+.back-btn {
+  background: red;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Container */
+.container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+#titulo {
+  color: red;
+  font-size: 1.6rem;
+  text-shadow: 0 0 8px red;
+}
+
+/* Video */
+video {
+  width: 90%;
+  max-width: 1000px;
+  border-radius: 10px;
+  box-shadow: 0 0 30px red;
+  background: #000;
+}
+
+/* Botões de episódios */
+.episodios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.episodios button {
+  background: #b30000;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: bold;
+}
+.episodios button:hover {
+  background: #ff3333;
+  box-shadow: 0 0 20px red;
+}
+
+/* Mensagem */
+.msg {
+  color: #ccc;
+  text-align: center;
+  margin-top: 10px;
+}
 </style>
 </head>
 <body>
@@ -25,48 +96,42 @@ video{width:90%;max-width:1000px;border-radius:10px;box-shadow:0 0 30px red;back
 </header>
 
 <main class="container">
-  <div id="titulo">Carregando...</div>
+  <div id="titulo">Demon Slayer</div>
   <video id="player" controls playsinline></video>
   <div id="episodios" class="episodios"></div>
   <div id="info" class="msg">Escolha um episódio para começar.</div>
 </main>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const anime = params.get('anime') || 'Demon Slayer';
-const tituloEl = document.getElementById('titulo');
+const videoEl = document.getElementById('player');
 const episodiosEl = document.getElementById('episodios');
 const infoEl = document.getElementById('info');
-const videoEl = document.getElementById('player');
+const tituloEl = document.getElementById('titulo');
 
-tituloEl.textContent = anime;
+/* Lista de vídeos - coloque os nomes exatos aqui */
+const listaEps = [
+  "DemonSlayer_EP1.mp4",
+  "DemonSlayer_EP2.mp4",
+  "DemonSlayer_EP3.mp4",
+  "DemonSlayer_EP4.mp4"
+  // adicione todos os episódios que tiver
+];
 
-/* Episódios disponíveis por anime */
-const catalogo = {
-  "Demon Slayer": 55, // atualizado
-  "Naruto": 220,
-  "One Piece": 1000,
-  "Arcane": 9,
-  "Stranger Things": 34
-};
-
-const qtdEps = catalogo[anime] || 1;
-
-/* Cria botões de episódio */
-for(let i=1;i<=qtdEps;i++){
+/* Cria botões de episódio automaticamente */
+listaEps.forEach((ep, index) => {
   const b = document.createElement('button');
-  b.textContent = `EP ${i}`;
+  b.textContent = `EP ${index + 1}`;
   b.onclick = () => {
-    videoEl.src = `videos/${anime.replace(/ /g,'')}_EP${i}.mp4`;
+    videoEl.src = ep;
     videoEl.load();
     videoEl.play().catch(()=>{});
-    infoEl.textContent = `Tocando EP ${i}`;
+    infoEl.textContent = `Tocando EP ${index + 1}`;
   };
   episodiosEl.appendChild(b);
-}
+});
 
 /* Toca o primeiro episódio por padrão */
-videoEl.src = `videos/${anime.replace(/ /g,'')}_EP1.mp4`;
+videoEl.src = listaEps[0];
 videoEl.load();
 videoEl.play().catch(()=>{});
 infoEl.textContent = `Tocando EP 1`;
