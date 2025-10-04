@@ -3,211 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeonFlix - Animes e Séries</title>
+<title>NeonFlix - Animes</title>
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: #000;
-    color: #fff;
-    font-family: 'Arial', sans-serif;
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background: #0a0a0a;
-    border-bottom: 2px solid red;
-  }
-
-  .logo {
-    font-size: 2em;
-    font-weight: bold;
-    color: red;
-    text-shadow: 0 0 10px red, 0 0 20px red;
-  }
-
-  nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.1em;
-    transition: 0.3s;
-  }
-
-  nav a:hover {
-    color: red;
-    text-shadow: 0 0 10px red;
-  }
-
-  .section-title {
-    margin: 40px 20px 10px;
-    font-size: 1.8em;
-    color: red;
-    text-shadow: 0 0 10px red;
-  }
-
-  .catalogo {
-    display: flex;
-    overflow-x: auto;
-    padding: 20px;
-    gap: 15px;
-  }
-
-  .catalogo::-webkit-scrollbar {
-    height: 8px;
-  }
-
-  .catalogo::-webkit-scrollbar-thumb {
-    background: red;
-    border-radius: 10px;
-  }
-
-  .anime, .serie {
-    position: relative;
-    flex: 0 0 auto;
-    width: 200px;
-    height: 280px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 10px #ff000055;
-    transition: 0.3s;
-  }
-
-  .anime:hover, .serie:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px red, 0 0 40px #ff0000aa, 0 0 60px #ff0000aa;
-  }
-
-  .anime img.capa, .serie img.capa {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: 0.3s ease;
-  }
-
-  .anime video.trailer, .serie video.trailer {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: 0.3s ease;
-  }
-
-  .anime:hover video.trailer, .serie:hover video.trailer {
-    opacity: 1;
-  }
-
-  .anime:hover img.capa, .serie:hover img.capa {
-    opacity: 0;
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .btn {
-    background: red;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-weight: bold;
-    text-shadow: 0 0 5px black;
-    box-shadow: 0 0 20px red;
-    cursor: pointer;
-    transition: 0.3s;
-    border: none;
-    font-size: 1em;
-    animation: pulse 1.5s infinite;
-  }
-
-  .btn:hover {
-    background: #ff3333;
-    box-shadow: 0 0 40px red, 0 0 10px white;
-  }
-
-  @keyframes pulse {
-    0% { box-shadow: 0 0 20px red, 0 0 5px white; }
-    50% { box-shadow: 0 0 40px red, 0 0 10px white; }
-    100% { box-shadow: 0 0 20px red, 0 0 5px white; }
-  }
+body{margin:0;padding:0;background:#000;color:#fff;font-family:Arial,sans-serif;}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background:#0a0a0a;border-bottom:2px solid red;}
+.logo{font-size:2em;font-weight:bold;color:red;text-shadow:0 0 10px red;}
+.catalogo{display:flex;overflow-x:auto;padding:20px;gap:15px;}
+.catalogo::-webkit-scrollbar{height:8px;}
+.catalogo::-webkit-scrollbar-thumb{background:red;border-radius:10px;}
+.anime{position:relative;flex:0 0 auto;width:200px;height:280px;border-radius:10px;overflow:hidden;box-shadow:0 0 10px #ff000055;transition:.3s;}
+.anime:hover{transform:scale(1.1);box-shadow:0 0 25px red,0 0 40px #ff0000aa,0 0 60px #ff0000aa;}
+.anime img.capa{width:100%;height:100%;object-fit:cover;display:block;transition:.3s;}
+.anime video.trailer{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;opacity:0;transition:.3s;}
+.anime:hover video.trailer{opacity:1;}
+.anime:hover img.capa{opacity:0;}
+.overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.btn{background:red;color:white;padding:10px 20px;border-radius:30px;font-weight:bold;text-shadow:0 0 5px black;box-shadow:0 0 20px red;cursor:pointer;transition:.3s;border:none;font-size:1em;animation:pulse 1.5s infinite;}
+.btn:hover{background:#ff3333;box-shadow:0 0 40px red,0 0 10px white;}
+.fav-btn{position:absolute;top:8px;right:8px;width:30px;height:30px;background:red;color:#fff;border:none;border-radius:50%;cursor:pointer;font-weight:bold;box-shadow:0 0 10px red;text-align:center;line-height:30px;}
+.fav-btn.active{background:#ff3333;}
+@keyframes pulse{0%{box-shadow:0 0 20px red,0 0 5px white;}50%{box-shadow:0 0 40px red,0 0 10px white;}100%{box-shadow:0 0 20px red,0 0 5px white;}}
 </style>
 </head>
 <body>
-  <header>
-        <div class="logo">AnimeStream</div>
-    <nav>
-      <a href="#">Início</a>
-      <a href="#">Catálogo</a>
-      <a href="#">Favoritos</a>
-      <a href="#">Perfil</a>
-    </nav>
-  </header>
+<header>
+  <div class="logo">NEONFLIX</div>
+</header>
 
-  <h2 class="section-title">Animes</h2>
-  <div class="catalogo">
-    <div class="anime">
-      <img class="capa" src="imagens/demon.jpg" alt="Demon Slayer">
-      <video class="trailer" autoplay muted loop>
-        <source src="videos/DemonSlayer_ep1.mp4" type="video/mp4">
-      </video>
-      <div class="overlay">
-        <button class="btn" onclick="window.location.href='player.html?anime=Demon Slayer'">ASSISTIR AGORA</button>
-      </div>
-    </div>
-    <div class="anime">
-      <img class="capa" src="imagens/naruto.jpg" alt="Naruto">
-      <video class="trailer" autoplay muted loop>
-        <source src="videos/Naruto_ep1.mp4" type="video/mp4">
-      </video>
-      <div class="overlay">
-        <button class="btn" onclick="window.location.href='player.html?anime=Naruto'">ASSISTIR AGORA</button>
-      </div>
-    </div>
-    <div class="anime">
-      <img class="capa" src="imagens/onepiece.jpg" alt="One Piece">
-      <video class="trailer" autoplay muted loop>
-        <source src="videos/OnePiece_ep1.mp4" type="video/mp4">
-      </video>
-      <div class="overlay">
-        <button class="btn" onclick="window.location.href='player.html?anime=One Piece'">ASSISTIR AGORA</button>
-      </div>
-    </div>
-  </div>
+<h2 style="color:red;text-shadow:0 0 10px red;margin:20px;">Animes</h2>
+<div class="catalogo" id="catalogo"></div>
 
-  <h2 class="section-title">Séries</h2>
-  <div class="catalogo">
-    <div class="serie">
-      <img class="capa" src="imagens/arcane.jpg" alt="Arcane">
-      <video class="trailer" autoplay muted loop>
-        <source src="videos/Arcane_ep1.mp4" type="video/mp4">
-      </video>
-      <div class="overlay">
-        <button class="btn" onclick="window.location.href='player.html?anime=Arcane'">ASSISTIR AGORA</button>
-      </div>
+<script>
+/* ===== Lista de animes ===== */
+const animes = [
+  {nome:"Demon Slayer", capa:"imagens/DemonSlayer.jpg", video:"videos/DemonSlayer_ep1.mp4"},
+  {nome:"Naruto", capa:"imagens/Naruto.jpg", video:"videos/Naruto_ep1.mp4"},
+  {nome:"One Piece", capa:"imagens/OnePiece.jpg", video:"videos/OnePiece_ep1.mp4"},
+  {nome:"Arcane", capa:"imagens/Arcane.jpg", video:"videos/Arcane_ep1.mp4"},
+  {nome:"Stranger Things", capa:"imagens/StrangerThings.jpg", video:"videos/StrangerThings_ep1.mp4"}
+];
+
+/* ===== Carregar favoritos do localStorage ===== */
+let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+
+/* ===== Renderizar catálogo ===== */
+const catalogoEl = document.getElementById('catalogo');
+animes.forEach(anime=>{
+  const div = document.createElement('div');
+  div.className='anime';
+  div.innerHTML = `
+    <img class="capa" src="${anime.capa}" alt="${anime.nome}">
+    <video class="trailer" autoplay muted loop>
+      <source src="${anime.video}" type="video/mp4">
+    </video>
+    <div class="overlay">
+      <button class="btn" onclick="assistir('${anime.nome}')">ASSISTIR</button>
     </div>
-    <div class="serie">
-      <img class="capa" src="imagens/strangerthings.jpg" alt="Stranger Things">
-      <video class="trailer" autoplay muted loop>
-        <source src="videos/StrangerThings_ep1.mp4" type="video/mp4">
-      </video>
-      <div class="overlay">
-        <button class="btn" onclick="window.location.href='player.html?anime=Stranger Things'">ASSISTIR AGORA</button>
-      </div>
-    </div>
-  </div>
+    <button class="fav-btn ${favoritos.includes(anime.nome)?'active':''}" onclick="toggleFavorito('${anime.nome}', this)">❤</button>
+  `;
+  catalogoEl.appendChild(div);
+});
+
+/* ===== Funções ===== */
+function assistir(nome){
+  window.location.href = `player.html?anime=${nome}`;
+}
+
+function toggleFavorito(nome, btn){
+  if(favoritos.includes(nome)){
+    favoritos = favoritos.filter(f=>f!==nome);
+    btn.classList.remove('active');
+  } else {
+    favoritos.push(nome);
+    btn.classList.add('active');
+  }
+  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+}
+</script>
 </body>
 </html>
