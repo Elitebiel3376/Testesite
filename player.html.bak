@@ -25,7 +25,7 @@ video{width:90%;max-width:1000px;border-radius:10px;box-shadow:0 0 30px red;back
 </header>
 
 <main class="container">
-  <div id="titulo">Kimetsu no Yaiba - Episódio 1</div>
+  <div id="titulo">Carregando...</div>
   <video id="player" controls playsinline></video>
   <div id="episodios" class="episodios"></div>
   <div id="info" class="msg">Escolha um episódio para começar.</div>
@@ -33,7 +33,7 @@ video{width:90%;max-width:1000px;border-radius:10px;box-shadow:0 0 30px red;back
 
 <script>
 const params = new URLSearchParams(window.location.search);
-const anime = params.get('anime') || 'Kimetsu no Yaiba';
+const anime = params.get('anime') || 'Reprodução';
 const tituloEl = document.getElementById('titulo');
 const episodiosEl = document.getElementById('episodios');
 const infoEl = document.getElementById('info');
@@ -43,8 +43,11 @@ tituloEl.textContent = anime;
 
 /* Catálogo de episódios por anime */
 const catalogo = {
-  "Kimetsu no Yaiba": 26,
-  // Adicione outros animes e episódios conforme necessário
+  "Demon Slayer": 26,
+  "Naruto": 220,
+  "One Piece": 1000,
+  "Arcane": 9,
+  "Stranger Things": 34
 };
 
 const qtdEps = catalogo[anime] || 1;
@@ -54,7 +57,7 @@ for(let i=1;i<=qtdEps;i++){
   const b = document.createElement('button');
   b.textContent = `EP ${i}`;
   b.onclick = () => {
-    videoEl.src = `https://animesonlinecc.to/episodio/kimetsu-no-yaiba-episodio-${i}/`;
+    videoEl.src = `videos/${anime.replace(/ /g,'')}_ep${i}.mp4`;
     videoEl.load();
     videoEl.play().catch(()=>{});
     infoEl.textContent = `Tocando EP ${i}`;
@@ -63,7 +66,7 @@ for(let i=1;i<=qtdEps;i++){
 }
 
 /* Toca o primeiro episódio por padrão */
-videoEl.src = `https://animesonlinecc.to/episodio/kimetsu-no-yaiba-episodio-1/`;
+videoEl.src = `videos/${anime.replace(/ /g,'')}_ep1.mp4`;
 videoEl.load();
 videoEl.play().catch(()=>{});
 infoEl.textContent = `Tocando EP 1`;
