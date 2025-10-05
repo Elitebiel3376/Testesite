@@ -3,26 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Player - Demon Slayer</title>
+  <title>Demon Slayer - NeonFlix</title>
   <style>
     body {
       margin: 0;
       background: #000;
       color: #fff;
-      font-family: Arial, sans-serif;
+      font-family: Arial,sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 30px;
+      width: 100%;
       background: #0a0a0a;
+      padding: 15px;
       border-bottom: 2px solid red;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .logo {
       color: red;
-      font-weight: bold;
       font-size: 1.8rem;
+      font-weight: bold;
+      text-shadow: 0 0 15px red;
     }
     .back-btn {
       background: red;
@@ -31,9 +36,16 @@
       border-radius: 16px;
       text-decoration: none;
       font-weight: bold;
+      transition: 0.2s;
+    }
+    .back-btn:hover {
+      background: #ff3333;
+      box-shadow: 0 0 15px red;
     }
     .container {
       padding: 30px;
+      width: 100%;
+      max-width: 1000px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -44,17 +56,12 @@
       font-size: 1.6rem;
       text-shadow: 0 0 8px red;
     }
-    .video-container {
-      width: 90%;
-      max-width: 1000px;
-      aspect-ratio: 16/9;
-    }
-    iframe {
+    video {
       width: 100%;
-      height: 100%;
-      border: none;
+      max-width: 1000px;
       border-radius: 10px;
       box-shadow: 0 0 30px red;
+      background: #000;
     }
     .episodios {
       display: flex;
@@ -76,6 +83,12 @@
       background: #ff3333;
       box-shadow: 0 0 20px red;
     }
+    .episodios button.disabled {
+      background: #333;
+      color: #999;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
     .msg {
       color: #ccc;
       text-align: center;
@@ -88,43 +101,51 @@
     <div class="logo">NEONFLIX</div>
     <a href="home.html" class="back-btn">⬅ Voltar</a>
   </header>
-
-  <main class="container">
+  <div class="container">
     <div id="titulo">Demon Slayer</div>
-    <div class="video-container">
-      <iframe id="player" src="https://www.youtube.com/embed/Xyrj8scTFDM?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-    <div id="episodios" class="episodios">
-      <!-- Botões de episódios serão gerados aqui -->
-    </div>
-    <div id="info" class="msg">Escolha um episódio para começar.</div>
-  </main>
+    <video id="player" controls>
+      <source src="https://drive.google.com/uc?export=download&id=1ISGQ6iD_BxXQMeaVIEdF3qphH1xWAXzi" type="video/mp4">
+      Seu navegador não suporta vídeo.
+    </video>
+    <div class="episodios" id="episodios"></div>
+    <div id="info" class="msg">Assistindo EP 1</div>
+  </div>
 
   <script>
-    const player = document.getElementById('player');
-    const episodiosEl = document.getElementById('episodios');
-    const infoEl = document.getElementById('info');
-
-    // Lista de IDs dos vídeos do YouTube (substitua pelos IDs reais)
-    const listaEps = [
-      "Xyrj8scTFDM", // EP1
-      // Adicione os IDs dos outros episódios aqui
+    const eps = [
+      {num:1, link:"https://drive.google.com/uc?export=download&id=1ISGQ6iD_BxXQMeaVIEdF3qphH1xWAXzi"}, // EP1
+      {num:2, link:"https://drive.google.com/uc?export=download&id=1KeAQa_bkllI6a860BzetU3O9t_QzOdM2"}, // EP2
+      {num:3, link:null},{num:4, link:null},{num:5, link:null},{num:6, link:null},
+      {num:7, link:null},{num:8, link:null},{num:9, link:null},{num:10, link:null},
+      {num:11, link:null},{num:12, link:null},{num:13, link:null},{num:14, link:null},
+      {num:15, link:null},{num:16, link:null},{num:17, link:null},{num:18, link:null},
+      {num:19, link:null},{num:20, link:null},{num:21, link:null},{num:22, link:null},
+      {num:23, link:null},{num:24, link:null},{num:25, link:null},{num:26, link:null},
+      {num:27, link:null},{num:28, link:null},{num:29, link:null},{num:30, link:null},
+      {num:31, link:null},{num:32, link:null},{num:33, link:null},{num:34, link:null},
+      {num:35, link:null},{num:36, link:null},{num:37, link:null},{num:38, link:null},
+      {num:39, link:null},{num:40, link:null},{num:41, link:null},{num:42, link:null},
+      {num:43, link:null},{num:44, link:null},{num:45, link:null},{num:46, link:null},
+      {num:47, link:null},{num:48, link:null},{num:49, link:null},{num:50, link:null},
+      {num:51, link:null},{num:52, link:null},{num:53, link:null},{num:54, link:null},
+      {num:55, link:null}
     ];
 
-    // Cria botões automaticamente
-    listaEps.forEach((id, index) => {
-      const b = document.createElement('button');
-      b.textContent = `EP ${index + 1}`;
-      b.onclick = () => {
-        player.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
-        infoEl.textContent = `Assistindo EP ${index + 1}`;
-      };
-      episodiosEl.appendChild(b);
-    });
+    const player = document.getElementById('player');
+    const episEl = document.getElementById('episodios');
+    const infoEl = document.getElementById('info');
 
-    // Começa pelo primeiro episódio
-    player.src = `https://www.youtube.com/embed/${listaEps[0]}?autoplay=1`;
-    infoEl.textContent = "Assistindo EP 1";
+    eps.forEach(ep => {
+      const b = document.createElement('button');
+      b.textContent = ep.link ? `EP ${ep.num}` : `EP ${ep.num} (Em breve)`;
+      if(!ep.link) b.classList.add('disabled');
+      else b.onclick = () => {
+        player.src = ep.link;
+        player.play();
+        infoEl.textContent = `Assistindo EP ${ep.num}`;
+      };
+      episEl.appendChild(b);
+    });
   </script>
 </body>
 </html>
